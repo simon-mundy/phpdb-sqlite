@@ -6,9 +6,9 @@ namespace PhpDb\Sqlite\Sql\Ddl;
 
 use PhpDb\Adapter\Platform\PlatformInterface;
 use PhpDb\Sql\Ddl\CreateTable;
-use PhpDb\Sql\Platform\PlatformDecoratorInterface;
 use PhpDb\Sql\PreparableSqlInterface;
 use PhpDb\Sql\SqlInterface;
+use PhpDb\Sql\Strategy\TypeDecoratorInterface;
 
 use function count;
 use function range;
@@ -20,7 +20,7 @@ use function strtoupper;
 use function substr_replace;
 use function uksort;
 
-final class CreateTableDecorator extends CreateTable implements PlatformDecoratorInterface
+final class CreateTableDecorator extends CreateTable implements TypeDecoratorInterface
 {
     /** @psalm-suppress PossiblyUnusedProperty */
     public SqlInterface|PreparableSqlInterface|null $subject;

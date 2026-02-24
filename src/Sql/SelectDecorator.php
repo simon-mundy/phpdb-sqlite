@@ -7,12 +7,12 @@ namespace PhpDb\Sqlite\Sql;
 use PhpDb\Adapter\Driver\DriverInterface;
 use PhpDb\Adapter\ParameterContainer;
 use PhpDb\Adapter\Platform\PlatformInterface;
-use PhpDb\Sql\Platform\PlatformDecoratorInterface;
 use PhpDb\Sql\PreparableSqlInterface;
 use PhpDb\Sql\Select;
 use PhpDb\Sql\SqlInterface;
+use PhpDb\Sql\Strategy\TypeDecoratorInterface;
 
-final class SelectDecorator extends Select implements PlatformDecoratorInterface
+final class SelectDecorator extends Select implements TypeDecoratorInterface
 {
     public SqlInterface|PreparableSqlInterface|null $subject;
 

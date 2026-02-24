@@ -8,7 +8,7 @@ use PDO;
 use PhpDb\Adapter\Driver\PdoDriverInterface;
 use PhpDb\Adapter\Exception\VunerablePlatformQuoteException;
 use PhpDb\Sqlite\AdapterPlatform;
-use PhpDb\Sqlite\Sql\Platform as SqlPlatformDecorator;
+use PhpDb\Sqlite\Sql\SqliteStrategy;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
@@ -21,19 +21,6 @@ final class AdapterPlatformTest extends TestCase
     {
         $pdoMock        = $this->createMock(PDO::class);
         $this->platform = new AdapterPlatform($pdoMock);
-    }
-
-    public function testGetNameReturnsSqlite(): void
-    {
-        $pdoMock  = $this->createMock(PDO::class);
-        $platform = new AdapterPlatform($pdoMock);
-
-        self::assertSame('SQLite', $platform->getName());
-    }
-
-    public function testPlatformNameConstant(): void
-    {
-        self::assertSame('SQLite', AdapterPlatform::PLATFORM_NAME);
     }
 
     public function testConstructWithPdo(): void
@@ -52,19 +39,14 @@ final class AdapterPlatformTest extends TestCase
         self::assertInstanceOf(AdapterPlatform::class, $platform);
     }
 
-    public function testGetSqlPlatformDecorator(): void
+    public function testGetSqlStrategy(): void
     {
         $pdoMock  = $this->createMock(PDO::class);
         $platform = new AdapterPlatform($pdoMock);
 
-        $decorator = $platform->getSqlPlatformDecorator();
+        $strategy = $platform->getSqlStrategy();
 
-        self::assertInstanceOf(SqlPlatformDecorator::class, $decorator);
-    }
-
-    public function testGetName(): void
-    {
-        self::assertEquals('SQLite', $this->platform->getName());
+        self::assertInstanceOf(SqliteStrategy::class, $strategy);
     }
 
     public function testGetQuoteIdentifierSymbol(): void

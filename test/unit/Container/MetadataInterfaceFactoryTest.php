@@ -20,9 +20,8 @@ final class MetadataInterfaceFactoryTest extends TestCase
 {
     public function testInvokeReturnsMetadata(): void
     {
-        $driverMock   = $this->createMock(PdoDriverInterface::class);
-        $platformMock = $this->createMock(PlatformInterface::class);
-        $platformMock->method('getName')->willReturn('SQLite');
+        $driverMock    = $this->createMock(PdoDriverInterface::class);
+        $platformMock  = $this->createMock(PlatformInterface::class);
         $resultSetMock = $this->createMock(ResultSetInterface::class);
 
         $adapterMock = new Adapter($driverMock, $platformMock, $resultSetMock);

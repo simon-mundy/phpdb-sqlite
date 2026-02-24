@@ -6,10 +6,10 @@ namespace PhpDb\Sqlite\Sql;
 
 use PhpDb\Sql\Ddl\AlterTable;
 use PhpDb\Sql\Ddl\CreateTable;
-use PhpDb\Sql\Platform\AbstractPlatform;
 use PhpDb\Sql\Select;
+use PhpDb\Sql\Strategy\AbstractSqlStrategy;
 
-final class Platform extends AbstractPlatform
+final class SqliteStrategy extends AbstractSqlStrategy
 {
     public function __construct()
     {

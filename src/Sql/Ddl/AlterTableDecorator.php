@@ -7,9 +7,9 @@ namespace PhpDb\Sqlite\Sql\Ddl;
 use PhpDb\Adapter\Platform\PlatformInterface;
 use PhpDb\Sql\Ddl\AlterTable;
 use PhpDb\Sql\Ddl\Column\ColumnInterface;
-use PhpDb\Sql\Platform\PlatformDecoratorInterface;
 use PhpDb\Sql\PreparableSqlInterface;
 use PhpDb\Sql\SqlInterface;
+use PhpDb\Sql\Strategy\TypeDecoratorInterface;
 
 use function count;
 use function range;
@@ -21,7 +21,7 @@ use function strtoupper;
 use function substr_replace;
 use function uksort;
 
-class AlterTableDecorator extends AlterTable implements PlatformDecoratorInterface
+class AlterTableDecorator extends AlterTable implements TypeDecoratorInterface
 {
     public SqlInterface|PreparableSqlInterface|null $subject;
 

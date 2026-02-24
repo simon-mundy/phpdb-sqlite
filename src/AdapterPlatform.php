@@ -8,12 +8,10 @@ use Override;
 use PDO;
 use PhpDb\Adapter\Driver\PdoDriverInterface;
 use PhpDb\Adapter\Platform\AbstractPlatform;
-use PhpDb\Sql\Platform\PlatformDecoratorInterface;
-use PhpDb\Sqlite\Sql\Platform;
+use PhpDb\Sql\Strategy\SqlStrategyInterface;
 
 class AdapterPlatform extends AbstractPlatform
 {
-    public final const PLATFORM_NAME = 'SQLite';
     /** @var string[] */
 
     protected array $quoteIdentifier = ['"', '"'];
@@ -27,8 +25,10 @@ class AdapterPlatform extends AbstractPlatform
     protected string $quoteIdentifierTo = '\'';
 
     public function __construct(
-        protected readonly PdoDriverInterface|PDO|null $driver = null
+        protected readonly PdoDriverInterface|PDO|null $driver = null,
+        ?SqlStrategyInterface $sqlStrategy = null
     ) {
+        $this->sqlStrategy = $sqlStrategy;
     }
 
     /**
@@ -69,21 +69,9 @@ class AdapterPlatform extends AbstractPlatform
         return parent::quoteTrustedValue($value);
     }
 
-    /**
-     * {@inheritDoc}
-     */
     #[Override]
-    public function getName(): string
+    protected function createDefaultSqlStrategy(): SqlStrategyInterface
     {
-        return self::PLATFORM_NAME;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    #[Override]
-    public function getSqlPlatformDecorator(): PlatformDecoratorInterface
-    {
-        return new Platform();
+        return new Sql\SqliteStrategy();
     }
 }
